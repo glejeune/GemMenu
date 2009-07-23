@@ -18,18 +18,12 @@ rescue LoadError
   @@__GROWL__ = false
 end
 
-begin
-  require 'rosxauth'
-  @@__ROSXAUTH__ = true
-rescue LoadError
-  @@__ROSXAUTH__ = false
-end
-
 class GemMenu < OSX::NSObject
   # -- Ze Menu !
   ib_outlet :gemMenu
   ib_outlet :updateMenu
   ib_outlet :checkMenu
+  ib_outlet :quitMenu
   
   
   # -- Update Windows
@@ -51,6 +45,7 @@ class GemMenu < OSX::NSObject
   
   def initialize()
     @gemsItems = []
+    @allItem = nil
     @canCheck = true
     @canUpdate = true
   end
@@ -60,14 +55,14 @@ class GemMenu < OSX::NSObject
     @updateMenu.submenu.setAutoenablesItems(true)
     
     # -- Preferences
-    # Load defaults
+    # Load defaults preferences
     userDefaultsValuesPath=OSX::NSBundle.mainBundle.pathForResource_ofType("UserDefaults", "plist")
     userDefaultsValuesDict=OSX::NSDictionary.dictionaryWithContentsOfFile(userDefaultsValuesPath)
 
     @userDefaultsPrefs = OSX::NSUserDefaults.standardUserDefaults
     @userDefaultsPrefs.registerDefaults(userDefaultsValuesDict)
     
-    # Set
+    # Get user preferences and initialize preference window
     prefUpdateAsRoot = @userDefaultsPrefs.boolForKey("UpdateAsRoot")
     @updateAsRoot.setState(prefUpdateAsRoot)
     
@@ -83,9 +78,7 @@ class GemMenu < OSX::NSObject
 
     # -- Set the timer
     @timer = OSX::NSTimer.scheduledTimerWithTimeInterval_target_selector_userInfo_repeats( @checkTime.intValue * 60, self, :check, nil, true )
-    @fireDateValue.setStringValue( 
-      @timer.fireDate().descriptionWithCalendarFormat_timeZone_locale("%H:%M:%S", nil, OSX::NSUserDefaults.standardUserDefaults().dictionaryRepresentation())
-    )
+    self.updateFireDateInPrefWindow()
 
     # -- Initialize Growl Notifications
     @growl = nil
@@ -105,11 +98,6 @@ class GemMenu < OSX::NSObject
     @gemStatusBarItem.setHighlightMode(true)
     @gemStatusBarItem.setMenu(@gemMenu)
     @gemStatusBarItem.setImage(@gemMenuImage)
-    
-    # -- Warning for ROSXAuth
-    if @@__ROSXAUTH__ == false
-      OSX::NSRunAlertPanel("GemMenu", "You must install ROSXAuth if you want to be able to update your gems.\n\nOpen a term and run 'sudo gem install rosxauth'", "OK", nil, nil)
-    end
   end
   
   # Actions !
@@ -131,23 +119,32 @@ class GemMenu < OSX::NSObject
   def check(sender)
     return unless @canCheck
     
-    @canCheck = false
-    @checkMenu.setEnabled(false)
-    
     Thread.new do
+      # Number of gems found
       nbGems = 0
+      # String list of gems (for Growl)
       strGemList = ""
+      # Update submenu
       subMenu = @updateMenu.submenu
 
-      # -- Search outdated Gems
+      # Disable "Check now!" Menu
+      @canCheck = false
+      @checkMenu.setEnabled(false)
+      
+      # Disable "Update" Menu
+      @canUpdate = false
+      @updateMenu.setEnabled(false)
+
+      # Search outdated Gems
       locals = Gem::SourceIndex.from_installed_gems
       
-      # -- Remove all items
+      # Remove all items in the Update sub menu
       @gemsItems.each do |item|
         subMenu.removeItem(item)
       end
       @gemsItems = []
 
+      # Update "Updates" menu
       locals.outdated.sort.each do |name|
         local = locals.find_name(name).last
 
@@ -156,24 +153,42 @@ class GemMenu < OSX::NSObject
         remote = remotes.last.first
       
         nbGems += 1
+        
+        # We add the "Update all" menu
+        if nbGems == 1
+          @allItem = OSX::NSMenuItem.alloc.initWithTitle_action_keyEquivalent("Update all", :updateAll, "")
+          @allItem.setEnabled(true)
+          @gemsItems << @allItem
+          subMenu.addItem(@allItem)
+        end
 
-        dynamicItem = OSX::NSMenuItem.alloc.initWithTitle_action_keyEquivalent_("#{local.name} (#{local.version} < #{remote.version})", :doUpdate, "")
+        # Add the gem in the Update submenu
+        dynamicItem = OSX::NSMenuItem.alloc.initWithTitle_action_keyEquivalent("#{local.name} (#{local.version} < #{remote.version})", :doUpdate, "")
         strGemList << "\n#{local.name} (#{local.version} < #{remote.version})"
         dynamicItem.setEnabled(true)
         @gemsItems << dynamicItem
         subMenu.addItem(dynamicItem)
       end
     
+      # Set the Update menu title
       @updateMenu.setTitle("Updates (#{nbGems})")
+      
+      # Send growl notification 
       if @@__GROWL__ and @showGrowlNotifications.state == OSX::NSOnState and nbGems > 0
         @growl.notify('updates', 'GemMenu', "#{nbGems} updates found :\n#{strGemList}")
       end
-      @checkMenu.setEnabled(true)
+      OSX::NSLog("#{nbGems} updates found :\n#{strGemList}")
+      
+      # Enable "Check now!" Menu
       @canCheck = true
+      @checkMenu.setEnabled(true)
+      
+      # Enable "Update" Menu
+      @canUpdate = true
+      @updateMenu.setEnabled(true)
 
-      @fireDateValue.setStringValue( 
-        @timer.fireDate().descriptionWithCalendarFormat_timeZone_locale("%H:%M:%S", nil, OSX::NSUserDefaults.standardUserDefaults().dictionaryRepresentation())
-      )
+      # Update fire date value in the preference Window
+      self.updateFireDateInPrefWindow()
     end
   end
   ib_action :check
@@ -185,7 +200,6 @@ class GemMenu < OSX::NSObject
   ib_action :setPrefsUpdateAsRoot
   
   def setPrefsGemExecutable(sender)
-    puts "Change gem exec to #{@gemExecutable.stringValue}"
     @userDefaultsPrefs.setObject_forKey(@gemExecutable.stringValue, "GemExecutable")
     @userDefaultsPrefs.synchronize
   end
@@ -195,9 +209,7 @@ class GemMenu < OSX::NSObject
     @timer.invalidate()
     @checkTime.setIntValue(@updateInterval.intValue())
     @timer = OSX::NSTimer.scheduledTimerWithTimeInterval_target_selector_userInfo_repeats( @checkTime.intValue * 60, self, :check, nil, true )
-    @fireDateValue.setStringValue( 
-      @timer.fireDate().descriptionWithCalendarFormat_timeZone_locale("%H:%M:%S", nil, OSX::NSUserDefaults.standardUserDefaults().dictionaryRepresentation())
-    )
+    self.updateFireDateInPrefWindow()
     
     @userDefaultsPrefs.setInteger_forKey(@updateInterval.intValue(), "UpdateInterval")
     @userDefaultsPrefs.synchronize
@@ -210,40 +222,104 @@ class GemMenu < OSX::NSObject
   end
   ib_action :setPrefsShowGrowlNotifications
   
-  def doUpdate(sender)
-    return unless @canUpdate
-    return if @@__ROSXAUTH__ == false
-    
-    # -- Disable Check
-    @canCheck = false
-    
-    # -- Disable Update
-    @canUpdate = false
-    
-    # -- Initialize Authorizations
-    autz = ROSXAuth.new()
-    if( autz.auth == ROSXAuth::ErrAuthorizationSuccess and autz.auth? )
-      Thread.new do
-        output = autz.exec( "/usr/bin/sudo", [@gemExecutable.stringValue().to_s, "update", "-y" ] )
-        if output.nil?
-          OSX::NSRunCriticalAlertPanel("GemMenu", "Update faild!", "OK", nil, nil)
-        else
-          IO.for_fd( output ).each do |outtext|
-            OSX::NSLog(outtext)
-          end
+  # -- Action for "Update all"
+  def updateAll(sender)
+    return if @canUpdate == false
+
+    # Initialize authorizations
+    OSX::NSLog( "Update all gems..." )
+    Thread.new do
+      if self.gemUpdate(nil)
+        # Update "Update" submenu
+        @gemsItems.each do |item|
+          @updateMenu.submenu.removeItem(item)
         end
-        
-        @canUpdate = true
-        @canCheck = true
-        self.check(self)
+        @updateMenu.setTitle("Updates (0)")
+        @gemsItems = []
       end
-    else
-      OSX::NSLog("Autorization update faild with status #{autz.auth}")
     end
   end
   
-  # -- deletages
+  # -- Action for update
+  def doUpdate(sender)
+    return if @canUpdate == false
+    
+    # Initialize authorizations
+    Thread.new do
+      if self.gemUpdate(sender)
+        # Update "Update" submenu
+        @gemsItems.delete(sender)
+        @updateMenu.submenu.removeItem(sender)
+        @updateMenu.setTitle("Updates (#{@gemsItems.size-1})")
+    
+        # Remove "Update all" item if there is no more gem to update
+        if @gemsItems.size == 1
+          @gemsItems.delete(@allItem)
+          @updateMenu.submenu.removeItem(@allItem)
+          @updateMenu.setTitle("Updates (0)")
+        end
+      end
+    end
+  end
   
+  # -- Gem update 
+  # gem is a NSMenuItem or nil
+  def gemUpdate(gem)
+    rCod = true
+    # Disable "Check Now!" Menu
+    @canCheck = false
+    @checkMenu.setEnabled(false)
+    
+    # Disable "Updates" menu
+    @canUpdate = false
+    @updateMenu.setEnabled(false)
+    
+    # Disable "Quit GemMenu" menu
+    @quitMenu.setEnabled(false)
+  
+    # Get gem name
+    gemToUpdate = (gem.nil?)?"":" "+gem.title.gsub( /\(.*/, "" ).strip
+    OSX::NSLog( "Update#{gemToUpdate}..." )
+    
+    begin
+      privileges = (@updateAsRoot.state == OSX::NSOnState)?" with administrator privileges":""
+      cmd = "do shell script \"#{@gemExecutable.stringValue()} update#{gemToUpdate} -y\"#{privileges}"
+      #cmd = "do shell script \"#{@gemExecutable.stringValue()} list#{gemToUpdate} -a\"#{privileges}"
+      OSX::NSLog(cmd)
+      script = OSX::NSAppleScript.alloc.initWithSource(cmd)
+      errorInfo = OSX::OCObject.new
+      data = script.executeAndReturnError(errorInfo)
+      if data.nil?
+        OSX::NSRunAlertPanel( "UPDATE ERROR: #{errorInfo.objectForKey(OSX::NSAppleScriptErrorMessage)}")
+        rCod = false
+      else
+        OSX::NSLog(data.stringValue())
+      end
+    rescue => e
+      OSX::NSLog(e.message)
+    end
+
+    # Enable "Check Now!" Menu
+    @canCheck = true
+    @checkMenu.setEnabled(true)
+    
+    # Enable "Updates" menu
+    @canUpdate = true
+    @updateMenu.setEnabled(true)
+    
+    # Enable "Quit GemMenu" menu
+    @quitMenu.setEnabled(true)
+    
+    return rCod
+  end
+  
+  def updateFireDateInPrefWindow
+    @fireDateValue.setStringValue( 
+      @timer.fireDate().descriptionWithCalendarFormat_timeZone_locale("%H:%M:%S", nil, OSX::NSUserDefaults.standardUserDefaults().dictionaryRepresentation())
+    )
+  end
+  
+  # -- deletages
   def windowShouldClose(win)
     win.orderOut(self)
     return false

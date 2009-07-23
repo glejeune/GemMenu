@@ -8,8 +8,8 @@
 		<string key="IBDocument.HIToolboxVersion">353.00</string>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="373"/>
 			<integer value="404"/>
+			<integer value="373"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -732,6 +732,14 @@
 					</object>
 					<int key="connectionID">477</int>
 				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">quitMenu</string>
+						<reference key="source" ref="575998762"/>
+						<reference key="destination" ref="49929918"/>
+					</object>
+					<int key="connectionID">478</int>
+				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<object class="NSArray" key="orderedObjects">
@@ -1246,7 +1254,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">477</int>
+			<int key="maxID">478</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -1290,6 +1298,7 @@
 							<string>gemExecutable</string>
 							<string>gemMenu</string>
 							<string>prefWindow</string>
+							<string>quitMenu</string>
 							<string>showGrowlNotifications</string>
 							<string>updateAsRoot</string>
 							<string>updateInterval</string>
@@ -1298,6 +1307,7 @@
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
