@@ -329,7 +329,7 @@
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>3794715B10191CED00222154</string>
+										<string>3712003F10191E900028955C</string>
 										<key>history</key>
 										<array>
 											<string>37113A891014CC6900F9051C</string>
@@ -337,7 +337,7 @@
 											<string>37EBA8C310152BBE006FC481</string>
 											<string>3755523B101753B200D9BB3D</string>
 											<string>3755528C101765CD00D9BB3D</string>
-											<string>379471231019070300222154</string>
+											<string>3794715C10191D6F00222154</string>
 										</array>
 										<key>prevStack</key>
 										<array>
@@ -404,9 +404,9 @@
 			</array>
 			<key>TableOfContents</key>
 			<array>
-				<string>379471251019070300222154</string>
+				<string>3712003410191D840028955C</string>
 				<string>1CE0B1FE06471DED0097A5F4</string>
-				<string>379471261019070300222154</string>
+				<string>3712003510191D840028955C</string>
 				<string>1CE0B20306471E060097A5F4</string>
 				<string>1CE0B20506471E060097A5F4</string>
 			</array>
@@ -540,12 +540,10 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
-		<string>37947137101909FB00222154</string>
-		<string>37947138101909FB00222154</string>
 		<string>1CD10A99069EF8BA00B06720</string>
 		<string>37113A921014CC6900F9051C</string>
-		<string>/Users/greg/Dropbox/Greg/Dev/GemMenu/GemMenu.xcodeproj</string>
 		<string>1C78EAAD065D492600B07095</string>
+		<string>/Users/greg/Dropbox/Greg/Dev/GemMenu/GemMenu.xcodeproj</string>
 	</array>
 	<key>WindowString</key>
 	<string>0 109 1280 669 0 0 1280 778 </string>
@@ -625,7 +623,7 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>37113A921014CC6900F9051C</string>
-				<string>379471271019070300222154</string>
+				<string>3712003610191D840028955C</string>
 				<string>1CD0528F0623707200166675</string>
 				<string>XCMainBuildResultsModuleGUID</string>
 			</array>
@@ -745,13 +743,13 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>1CD10A99069EF8BA00B06720</string>
-				<string>379471281019070300222154</string>
+				<string>3712003710191D840028955C</string>
 				<string>1C162984064C10D400B95A72</string>
-				<string>379471291019070300222154</string>
-				<string>3794712A1019070300222154</string>
-				<string>3794712B1019070300222154</string>
-				<string>3794712C1019070300222154</string>
-				<string>3794712D1019070300222154</string>
+				<string>3712003810191D840028955C</string>
+				<string>3712003910191D840028955C</string>
+				<string>3712003A10191D840028955C</string>
+				<string>3712003B10191D840028955C</string>
+				<string>3712003C10191D840028955C</string>
 			</array>
 			<key>ToolbarConfiguration</key>
 			<string>xcode.toolbar.config.debugV3</string>
@@ -915,7 +913,7 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>1C78EAAD065D492600B07095</string>
-				<string>3794712E1019070300222154</string>
+				<string>3712003D10191D840028955C</string>
 				<string>1C78EAAC065D492600B07095</string>
 			</array>
 			<key>ToolbarConfiguration</key>
