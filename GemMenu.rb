@@ -291,6 +291,7 @@ class GemMenu < OSX::NSObject
       data = script.executeAndReturnError(errorInfo)
       if data.nil?
         OSX::NSRunAlertPanel("GemMenu", "UPDATE ERROR: #{errorInfo.objectForKey(OSX::NSAppleScriptErrorMessage)}", "OK", nil, nil)
+        OSX::NSLog("UPDATE ERROR: #{errorInfo.objectForKey(OSX::NSAppleScriptErrorMessage)}")
         rCod = false
       else
         OSX::NSLog(data.stringValue())
