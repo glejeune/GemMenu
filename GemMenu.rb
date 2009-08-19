@@ -11,6 +11,8 @@ require 'osx/cocoa'
 require 'rubygems'
 require 'rubygems/source_index'
 
+require 'open-uri'
+
 begin
   require 'growl'
   @@__GROWL__ = true
@@ -24,7 +26,6 @@ class GemMenu < OSX::NSObject
   ib_outlet :updateMenu
   ib_outlet :checkMenu
   ib_outlet :quitMenu
-  
   
   # -- Update Windows
   ib_outlet :updateWindow
@@ -43,15 +44,25 @@ class GemMenu < OSX::NSObject
   ib_outlet :gemExecutable  
   ib_outlet :updateInterval
   
+  ib_outlet :startAtLogin
+  
   def initialize()
     @gemsItems = []
     @allItem = nil
     @canCheck = true
     @canUpdate = true
+    @networkDown = false
   end
   
   def awakeFromNib
     @gemMenuImage = OSX::NSImage.imageNamed("menuImage.gif")
+    @gemMenuImageA = [ 
+      OSX::NSImage.imageNamed("menuImageA1.gif"),
+      OSX::NSImage.imageNamed("menuImageA2.gif"),
+      OSX::NSImage.imageNamed("menuImageA3.gif"),
+      OSX::NSImage.imageNamed("menuImageA4.gif")
+    ]
+    @gemMenuImageNetworkDown = OSX::NSImage.imageNamed("menuImageNetworkDown.gif")
     @updateMenu.submenu.setAutoenablesItems(true)
     
     # -- Preferences
@@ -75,9 +86,12 @@ class GemMenu < OSX::NSObject
     
     prefShowGrowlNotifications = @userDefaultsPrefs.boolForKey("ShowGrowlNotifications")
     @showGrowlNotifications.setState(prefShowGrowlNotifications)
+    
+    prefStartAtLogin = @userDefaultsPrefs.boolForKey("StartAtLogin")
+    @startAtLogin.setState(prefStartAtLogin)
 
-    # -- Set the timer
-    @timer = OSX::NSTimer.scheduledTimerWithTimeInterval_target_selector_userInfo_repeats( @checkTime.intValue * 60, self, :check, nil, true )
+    # -- Set the check timer
+    @checkTimer = OSX::NSTimer.scheduledTimerWithTimeInterval_target_selector_userInfo_repeats( @checkTime.intValue * 60, self, :check, nil, true )
     self.updateFireDateInPrefWindow()
 
     # -- Initialize Growl Notifications
@@ -86,9 +100,6 @@ class GemMenu < OSX::NSObject
       @growl = Growl::Notifier.sharedInstance
       @growl.register('GemMenu', ['updates'])
     end
-    
-    # -- Initial check!
-    self.check(self)
   end
   
   def applicationDidFinishLaunching( aNotification )
@@ -97,7 +108,14 @@ class GemMenu < OSX::NSObject
     @gemStatusBarItem = bar.statusItemWithLength(24)
     @gemStatusBarItem.setHighlightMode(true)
     @gemStatusBarItem.setMenu(@gemMenu)
-    @gemStatusBarItem.setImage(@gemMenuImage)
+    self.setDefaultMenuImage() #@gemStatusBarItem.setImage(@gemMenuImage)
+    
+    # -- Set the network timer
+    self.checkNetwork(self)
+    @networkTimer = OSX::NSTimer.scheduledTimerWithTimeInterval_target_selector_userInfo_repeats( 60, self, :checkNetwork, nil, true )
+
+    # -- Initial check!
+    self.check(self)
   end
   
   # Actions !
@@ -135,8 +153,14 @@ class GemMenu < OSX::NSObject
       @canUpdate = false
       @updateMenu.setEnabled(false)
 
+      # Start menu image animation
+      animationTimer = OSX::NSTimer.scheduledTimerWithTimeInterval_target_selector_userInfo_repeats( 0.3, self, :setAnimationMenuImage, nil, true )
+      # self.setAnimationMenuImage(self)
+
       # Search outdated Gems
+      OSX::NSLog("Search outdated Gems")
       locals = Gem::SourceIndex.from_installed_gems
+      OSX::NSLog("Update menu...")
       
       # Remove all items in the Update sub menu
       @gemsItems.each do |item|
@@ -156,6 +180,7 @@ class GemMenu < OSX::NSObject
         
         # We add the "Update all" menu
         if nbGems == 1
+          OSX::NSLog("Add `Update all' menu item")
           @allItem = OSX::NSMenuItem.alloc.initWithTitle_action_keyEquivalent("Update all", :updateAll, "")
           @allItem.setEnabled(true)
           @gemsItems << @allItem
@@ -163,6 +188,7 @@ class GemMenu < OSX::NSObject
         end
 
         # Add the gem in the Update submenu
+        OSX::NSLog("Add `#{local.name} (#{local.version} < #{remote.version})' menu item")
         dynamicItem = OSX::NSMenuItem.alloc.initWithTitle_action_keyEquivalent("#{local.name} (#{local.version} < #{remote.version})", :doUpdate, "")
         strGemList << "\n#{local.name} (#{local.version} < #{remote.version})"
         dynamicItem.setEnabled(true)
@@ -173,11 +199,14 @@ class GemMenu < OSX::NSObject
       # Set the Update menu title
       @updateMenu.setTitle("Updates (#{nbGems})")
       
+      # Stop menu image animation
+      animationTimer.invalidate()
+      self.setDefaultMenuImage()
+      
       # Send growl notification 
       if @@__GROWL__ and @showGrowlNotifications.state == OSX::NSOnState and nbGems > 0
         @growl.notify('updates', 'GemMenu', "#{nbGems} updates found :\n#{strGemList}")
       end
-      OSX::NSLog("#{nbGems} updates found :\n#{strGemList}")
       
       # Enable "Check now!" Menu
       @canCheck = true
@@ -206,9 +235,9 @@ class GemMenu < OSX::NSObject
   ib_action :setPrefsGemExecutable
   
   def setPrefsUpdateInterval(sender)
-    @timer.invalidate()
+    @checkTimer.invalidate()
     @checkTime.setIntValue(@updateInterval.intValue())
-    @timer = OSX::NSTimer.scheduledTimerWithTimeInterval_target_selector_userInfo_repeats( @checkTime.intValue * 60, self, :check, nil, true )
+    @checkTimer = OSX::NSTimer.scheduledTimerWithTimeInterval_target_selector_userInfo_repeats( @checkTime.intValue * 60, self, :check, nil, true )
     self.updateFireDateInPrefWindow()
     
     @userDefaultsPrefs.setInteger_forKey(@updateInterval.intValue(), "UpdateInterval")
@@ -221,6 +250,34 @@ class GemMenu < OSX::NSObject
     @userDefaultsPrefs.synchronize
   end
   ib_action :setPrefsShowGrowlNotifications
+  
+  def setPrefsStartAtLogin(sender)
+    @userDefaultsPrefs.setBool_forKey(@startAtLogin.state == OSX::NSOnState, "StartAtLogin")
+    @userDefaultsPrefs.synchronize
+    
+    myDict = OSX::NSMutableDictionary.alloc.init()
+    myDict.setObject_forKey(false, "Hide")
+    myDict.setObject_forKey(OSX::NSBundle.mainBundle().bundlePath(), "Path")
+    
+    defaults = OSX::NSUserDefaults.alloc.init()
+    defaults.addSuiteNamed("loginwindow")
+    
+    loginItems = OSX::NSMutableArray.arrayWithArray(defaults.persistentDomainForName("loginwindow").objectForKey("AutoLaunchedApplicationDictionary"))
+        
+    if @startAtLogin.state == OSX::NSOnState
+      OSX::NSLog("GemMenu start at login...")
+      loginItems.addObject(myDict)
+    else
+      OSX::NSLog("GemMenu don't start at login...")
+      loginItems.removeObject(myDict)
+    end
+    
+    newLoginDefaults = OSX::NSMutableDictionary.dictionaryWithDictionary(defaults.persistentDomainForName("loginwindow"))
+    newLoginDefaults.setObject_forKey(loginItems, "AutoLaunchedApplicationDictionary")
+  	defaults.setPersistentDomain_forName(newLoginDefaults, "loginwindow")
+    defaults.synchronize()
+  end
+  ib_action :setPrefsStartAtLogin
   
   # -- Action for "Update all"
   def updateAll(sender)
@@ -316,7 +373,7 @@ class GemMenu < OSX::NSObject
   
   def updateFireDateInPrefWindow
     @fireDateValue.setStringValue( 
-      @timer.fireDate().descriptionWithCalendarFormat_timeZone_locale("%H:%M:%S", nil, OSX::NSUserDefaults.standardUserDefaults().dictionaryRepresentation())
+      @checkTimer.fireDate().descriptionWithCalendarFormat_timeZone_locale("%H:%M:%S", nil, OSX::NSUserDefaults.standardUserDefaults().dictionaryRepresentation())
     )
   end
   
@@ -324,5 +381,58 @@ class GemMenu < OSX::NSObject
   def windowShouldClose(win)
     win.orderOut(self)
     return false
+  end
+  
+  # -- Image animation
+  def setAnimationMenuImage(sender)
+    img = @gemMenuImageA.push( @gemMenuImageA.shift )[-1]
+    @gemStatusBarItem.setImage(img)
+  end
+  def setDefaultMenuImage
+    @gemStatusBarItem.setImage(@gemMenuImage)
+  end
+  
+  # -- check network
+  def checkNetwork(sender)
+    networkDown = false
+    begin
+      open( "http://www.google.com" )
+    rescue => e
+      OSX::NSLog(e.message)
+      networkDown = true
+    end
+    
+    if networkDown and @networkDown == false
+      OSX::NSLog("Network is down")
+      
+      # Change menu icon
+      @gemStatusBarItem.setImage(@gemMenuImageNetworkDown)
+      
+      # Disable "Check Now!" Menu
+      @canCheck = false
+      @checkMenu.setEnabled(false)
+    
+      # Disable "Updates" menu
+      @canUpdate = false
+      @updateMenu.setEnabled(false)    
+    elsif @networkDown == true
+      OSX::NSLog("Network is up")
+      
+      # Change menu icon
+      @gemStatusBarItem.setImage(@gemMenuImage)
+      
+      # Disable "Check Now!" Menu
+      @canCheck = true
+      @checkMenu.setEnabled(true)
+    
+      # Disable "Updates" menu
+      @canUpdate = true
+      @updateMenu.setEnabled(true)
+      
+      # check
+      # self.check(self)
+    end
+    
+    @networkDown = networkDown
   end  
 end
