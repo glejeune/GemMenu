@@ -8,6 +8,8 @@
 
 require 'osx/cocoa'
 
+OSX.require_framework 'WebKit'
+
 require 'rubygems'
 require 'rubygems/source_index'
 
@@ -32,9 +34,13 @@ class GemMenu < OSX::NSObject
   
   # -- About Window
   ib_outlet :aboutWindow
+  ib_outlet :creditWebView
   
   # -- Preference Window
   ib_outlet :prefWindow
+  
+  ib_outlet :generalPrefsView
+  ib_outlet :rubygemsPrefView
   
   ib_outlet :checkTime
   ib_outlet :fireDateValue
@@ -100,6 +106,10 @@ class GemMenu < OSX::NSObject
       @growl = Growl::Notifier.sharedInstance
       @growl.register('GemMenu', ['updates'])
     end
+    
+    # -- Load credits
+    creditsPath = OSX::NSBundle.mainBundle().pathForResource_ofType("credits", "html")
+    @creditWebView.mainFrame().loadRequest(OSX::NSURLRequest.requestWithURL(OSX::NSURL.fileURLWithPath(creditsPath)))
   end
   
   def applicationDidFinishLaunching( aNotification )
@@ -181,7 +191,7 @@ class GemMenu < OSX::NSObject
         # We add the "Update all" menu
         if nbGems == 1
           OSX::NSLog("Add `Update all' menu item")
-          @allItem = OSX::NSMenuItem.alloc.initWithTitle_action_keyEquivalent("Update all", :updateAll, "")
+          @allItem = OSX::NSMenuItem.alloc.initWithTitle_action_keyEquivalent(OSX::NSLocalizedString("Update all", "Update all"), :updateAll, "")
           @allItem.setEnabled(true)
           @gemsItems << @allItem
           subMenu.addItem(@allItem)
@@ -197,7 +207,7 @@ class GemMenu < OSX::NSObject
       end
     
       # Set the Update menu title
-      @updateMenu.setTitle("Updates (#{nbGems})")
+      @updateMenu.setTitle(OSX::NSLocalizedString("Updates", "Updates")+" (#{nbGems})")
       
       # Stop menu image animation
       animationTimer.invalidate()
@@ -205,7 +215,7 @@ class GemMenu < OSX::NSObject
       
       # Send growl notification 
       if @@__GROWL__ and @showGrowlNotifications.state == OSX::NSOnState and nbGems > 0
-        @growl.notify('updates', 'GemMenu', "#{nbGems} updates found :\n#{strGemList}")
+        @growl.notify('updates', 'GemMenu', "#{nbGems} "+OSX::NSLocalizedString("updates found", "updates found")+" :\n#{strGemList}")
       end
       
       # Enable "Check now!" Menu
@@ -221,6 +231,20 @@ class GemMenu < OSX::NSObject
     end
   end
   ib_action :check
+  
+  # -- Preferences
+  
+  def showRubyGemsPrefs(sender)    
+    @rubygemsPrefView.setHidden(false)
+    @generalPrefsView.setHidden(true)
+  end
+  ib_action :showRubyGemsPrefs
+  
+  def showGeneralPrefs(sender)    
+    @rubygemsPrefView.setHidden(true)
+    @generalPrefsView.setHidden(false)
+  end
+  ib_action :showGeneralPrefs
   
   def setPrefsUpdateAsRoot(sender)
     @userDefaultsPrefs.setBool_forKey(@updateAsRoot.state == OSX::NSOnState, "UpdateAsRoot")
@@ -291,7 +315,7 @@ class GemMenu < OSX::NSObject
         @gemsItems.each do |item|
           @updateMenu.submenu.removeItem(item)
         end
-        @updateMenu.setTitle("Updates (0)")
+        @updateMenu.setTitle(OSX::NSLocalizedString("Updates", "Updates")+" (0)")
         @gemsItems = []
       end
     end
@@ -307,13 +331,13 @@ class GemMenu < OSX::NSObject
         # Update "Update" submenu
         @gemsItems.delete(sender)
         @updateMenu.submenu.removeItem(sender)
-        @updateMenu.setTitle("Updates (#{@gemsItems.size-1})")
+        @updateMenu.setTitle(OSX::NSLocalizedString("Updates", "Updates")+" (#{@gemsItems.size-1})")
     
         # Remove "Update all" item if there is no more gem to update
         if @gemsItems.size == 1
           @gemsItems.delete(@allItem)
           @updateMenu.submenu.removeItem(@allItem)
-          @updateMenu.setTitle("Updates (0)")
+          @updateMenu.setTitle(OSX::NSLocalizedString("Updates", "Updates")+" (0)")
         end
       end
     end
