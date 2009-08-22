@@ -106,6 +106,10 @@ class GemMenu < OSX::NSObject
       @growl = Growl::Notifier.sharedInstance
       @growl.register('GemMenu', ['updates'])
     end
+    
+    # -- Load credits
+    creditsPath = OSX::NSBundle.mainBundle().pathForResource_ofType("credits", "html")
+    @creditWebView.mainFrame().loadRequest(OSX::NSURLRequest.requestWithURL(OSX::NSURL.fileURLWithPath(creditsPath)))
   end
   
   def applicationDidFinishLaunching( aNotification )
@@ -187,7 +191,7 @@ class GemMenu < OSX::NSObject
         # We add the "Update all" menu
         if nbGems == 1
           OSX::NSLog("Add `Update all' menu item")
-          @allItem = OSX::NSMenuItem.alloc.initWithTitle_action_keyEquivalent("Update all", :updateAll, "")
+          @allItem = OSX::NSMenuItem.alloc.initWithTitle_action_keyEquivalent(OSX::NSLocalizedString("Update all", "Update all"), :updateAll, "")
           @allItem.setEnabled(true)
           @gemsItems << @allItem
           subMenu.addItem(@allItem)
@@ -204,6 +208,10 @@ class GemMenu < OSX::NSObject
     
       # Set the Update menu title
       @updateMenu.setTitle(OSX::NSLocalizedString("Updates", "Updates")+" (#{nbGems})")
+      
+      # Stop menu image animation
+      animationTimer.invalidate()
+      self.setDefaultMenuImage()
       
       # Stop menu image animation
       animationTimer.invalidate()
