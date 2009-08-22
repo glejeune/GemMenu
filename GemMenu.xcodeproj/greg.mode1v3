@@ -279,8 +279,6 @@
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 							<array>
 								<array>
-									<integer>17</integer>
-									<integer>6</integer>
 									<integer>0</integer>
 								</array>
 							</array>
@@ -320,7 +318,7 @@
 								<key>PBXProjectModuleGUID</key>
 								<string>1CE0B20306471E060097A5F4</string>
 								<key>PBXProjectModuleLabel</key>
-								<string>GemMenu.rb</string>
+								<string>Localizable.strings</string>
 								<key>PBXSplitModuleInNavigatorKey</key>
 								<dict>
 									<key>Split0</key>
@@ -328,11 +326,7 @@
 										<key>PBXProjectModuleGUID</key>
 										<string>1CE0B20406471E060097A5F4</string>
 										<key>PBXProjectModuleLabel</key>
-										<string>GemMenu.rb</string>
-										<key>_historyCapacity</key>
-										<integer>0</integer>
-										<key>bookmark</key>
-										<string>375C3BC8103EF7B9005851AF</string>
+										<string>Localizable.strings</string>
 										<key>history</key>
 										<array>
 											<string>370DD14710150676003437E8</string>
@@ -345,9 +339,6 @@
 											<string>375C3B9B103EF240005851AF</string>
 											<string>375C3B9C103EF240005851AF</string>
 											<string>375C3B9E103EF240005851AF</string>
-											<string>375C3B9F103EF240005851AF</string>
-											<string>375C3BC1103EF41A005851AF</string>
-											<string>375C3B9D103EF240005851AF</string>
 										</array>
 										<key>prevStack</key>
 										<array>
@@ -361,23 +352,9 @@
 											<string>37A8C945103BF47000EE6C5A</string>
 											<string>37A8C946103BF47000EE6C5A</string>
 											<string>37C566B8103EB93F00492B45</string>
-											<string>375C3BA1103EF240005851AF</string>
-											<string>375C3BA2103EF240005851AF</string>
 											<string>375C3BA3103EF240005851AF</string>
-											<string>375C3BA4103EF240005851AF</string>
-											<string>375C3BA5103EF240005851AF</string>
 											<string>375C3BA6103EF240005851AF</string>
-											<string>375C3BA7103EF240005851AF</string>
-											<string>375C3BA8103EF240005851AF</string>
-											<string>375C3BA9103EF240005851AF</string>
-											<string>375C3BAA103EF240005851AF</string>
-											<string>375C3BAB103EF240005851AF</string>
-											<string>375C3BAC103EF240005851AF</string>
 											<string>375C3BAD103EF240005851AF</string>
-											<string>375C3BAE103EF240005851AF</string>
-											<string>375C3BAF103EF240005851AF</string>
-											<string>375C3BB0103EF240005851AF</string>
-											<string>375C3BC2103EF41A005851AF</string>
 										</array>
 									</dict>
 									<key>SplitCount</key>
@@ -435,9 +412,9 @@
 			</array>
 			<key>TableOfContents</key>
 			<array>
-				<string>375C3BB2103EF240005851AF</string>
+				<string>37842205103FFB7900B7A0F9</string>
 				<string>1CE0B1FE06471DED0097A5F4</string>
-				<string>375C3BB3103EF240005851AF</string>
+				<string>37842206103FFB7900B7A0F9</string>
 				<string>1CE0B20306471E060097A5F4</string>
 				<string>1CE0B20506471E060097A5F4</string>
 			</array>
@@ -571,9 +548,7 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
-		<string>1CD10A99069EF8BA00B06720</string>
-		<string>37113A921014CC6900F9051C</string>
-		<string>1C78EAAD065D492600B07095</string>
+		<string>/Users/greg/Dropbox/Greg/Dev/github/GemMenu/GemMenu.xcodeproj</string>
 	</array>
 	<key>WindowString</key>
 	<string>4 109 1280 669 0 0 1280 778 </string>
@@ -653,7 +628,7 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>37113A921014CC6900F9051C</string>
-				<string>375C3BB4103EF240005851AF</string>
+				<string>3744A9DF103FF1A400CD2BC7</string>
 				<string>1CD0528F0623707200166675</string>
 				<string>XCMainBuildResultsModuleGUID</string>
 			</array>
@@ -773,13 +748,13 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>1CD10A99069EF8BA00B06720</string>
-				<string>375C3BB5103EF240005851AF</string>
+				<string>3744A9E0103FF1A400CD2BC7</string>
 				<string>1C162984064C10D400B95A72</string>
-				<string>375C3BB6103EF240005851AF</string>
-				<string>375C3BB7103EF240005851AF</string>
-				<string>375C3BB8103EF240005851AF</string>
-				<string>375C3BB9103EF240005851AF</string>
-				<string>375C3BBA103EF240005851AF</string>
+				<string>3744A9E1103FF1A400CD2BC7</string>
+				<string>3744A9E2103FF1A400CD2BC7</string>
+				<string>3744A9E3103FF1A400CD2BC7</string>
+				<string>3744A9E4103FF1A400CD2BC7</string>
+				<string>3744A9E5103FF1A400CD2BC7</string>
 			</array>
 			<key>ToolbarConfiguration</key>
 			<string>xcode.toolbar.config.debugV3</string>
@@ -906,8 +881,6 @@
 					<key>Dock</key>
 					<array>
 						<dict>
-							<key>BecomeActive</key>
-							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXProjectModuleGUID</key>
@@ -943,7 +916,7 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>1C78EAAD065D492600B07095</string>
-				<string>375C3BBB103EF240005851AF</string>
+				<string>3744A9E6103FF1A400CD2BC7</string>
 				<string>1C78EAAC065D492600B07095</string>
 			</array>
 			<key>ToolbarConfiguration</key>
@@ -953,7 +926,7 @@
 			<key>WindowToolGUID</key>
 			<string>1C78EAAD065D492600B07095</string>
 			<key>WindowToolIsVisible</key>
-			<true/>
+			<false/>
 		</dict>
 		<dict>
 			<key>Identifier</key>
