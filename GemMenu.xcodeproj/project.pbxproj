@@ -13,6 +13,8 @@
 		371C8981103EADFB00482EAB /* pref_general.png in Resources */ = {isa = PBXBuildFile; fileRef = 371C8980103EADFB00482EAB /* pref_general.png */; };
 		37555286101764C100D9BB3D /* UserDefaults.plist in Resources */ = {isa = PBXBuildFile; fileRef = 37555285101764C100D9BB3D /* UserDefaults.plist */; };
 		375C3B94103EF0C6005851AF /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 375C3B93103EF0C6005851AF /* Localizable.strings */; };
+		379C8B36104002A7008F43CF /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 379C8B35104002A7008F43CF /* Sparkle.framework */; };
+		379C8B4310400309008F43CF /* Sparkle.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 379C8B35104002A7008F43CF /* Sparkle.framework */; };
 		37A8C91C103AECFF00EE6C5A /* menuImageA1.gif in Resources */ = {isa = PBXBuildFile; fileRef = 37A8C91A103AECFF00EE6C5A /* menuImageA1.gif */; };
 		37A8C91D103AECFF00EE6C5A /* menuImageA2.gif in Resources */ = {isa = PBXBuildFile; fileRef = 37A8C91B103AECFF00EE6C5A /* menuImageA2.gif */; };
 		37A8C93C103BF43F00EE6C5A /* menuImageA3.gif in Resources */ = {isa = PBXBuildFile; fileRef = 37A8C939103BF43F00EE6C5A /* menuImageA3.gif */; };
@@ -27,6 +29,19 @@
 		4DDCA70C0ACC9A6100E082CE /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 		4DDCA70D0ACC9A6100E082CE /* RubyCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E8F5E24E03AEB6EC03A81C6F /* RubyCocoa.framework */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		379C8B42104002BF008F43CF /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				379C8B4310400309008F43CF /* Sparkle.framework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		089C165DFE840E0CC02AAC07 /* English */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -43,6 +58,7 @@
 		375C3B77103EE80C005851AF /* French */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = French; path = French.lproj/MainMenu.nib; sourceTree = "<group>"; };
 		375C3B91103EF0B2005851AF /* English */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/Localizable.strings; sourceTree = "<group>"; };
 		375C3B95103EF0D3005851AF /* French */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = French; path = French.lproj/Localizable.strings; sourceTree = "<group>"; };
+		379C8B35104002A7008F43CF /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Sparkle.framework; sourceTree = "<group>"; };
 		37A8C91A103AECFF00EE6C5A /* menuImageA1.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = menuImageA1.gif; sourceTree = "<group>"; };
 		37A8C91B103AECFF00EE6C5A /* menuImageA2.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = menuImageA2.gif; sourceTree = "<group>"; };
 		37A8C939103BF43F00EE6C5A /* menuImageA3.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = menuImageA3.gif; sourceTree = "<group>"; };
@@ -63,6 +79,7 @@
 			files = (
 				4DDCA70C0ACC9A6100E082CE /* Cocoa.framework in Frameworks */,
 				4DDCA70D0ACC9A6100E082CE /* RubyCocoa.framework in Frameworks */,
+				379C8B36104002A7008F43CF /* Sparkle.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -80,6 +97,7 @@
 		1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				379C8B35104002A7008F43CF /* Sparkle.framework */,
 				1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */,
 				E8F5E24E03AEB6EC03A81C6F /* RubyCocoa.framework */,
 			);
@@ -176,6 +194,7 @@
 				4DDCA7050ACC9A6100E082CE /* Resources */,
 				4DDCA7090ACC9A6100E082CE /* Sources */,
 				4DDCA70B0ACC9A6100E082CE /* Frameworks */,
+				379C8B42104002BF008F43CF /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -300,6 +319,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+				);
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_MODEL_TUNING = G5;
@@ -318,6 +341,10 @@
 				ARCHS = (
 					ppc,
 					i386,
+				);
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
 				);
 				GCC_MODEL_TUNING = G5;
 				INFOPLIST_FILE = Info.plist;

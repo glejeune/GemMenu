@@ -272,8 +272,6 @@
 								<string>29B97315FDCFA39411CA2CEA</string>
 								<string>29B97317FDCFA39411CA2CEA</string>
 								<string>29B97318FDCFA39411CA2CEA</string>
-								<string>089C165CFE840E0CC02AAC07</string>
-								<string>375C3B93103EF0C6005851AF</string>
 								<string>1C37FABC05509CD000000102</string>
 							</array>
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
@@ -321,7 +319,7 @@
 								<key>PBXProjectModuleGUID</key>
 								<string>1CE0B20306471E060097A5F4</string>
 								<key>PBXProjectModuleLabel</key>
-								<string>Localizable.strings</string>
+								<string>Info.plist</string>
 								<key>PBXSplitModuleInNavigatorKey</key>
 								<dict>
 									<key>Split0</key>
@@ -329,7 +327,11 @@
 										<key>PBXProjectModuleGUID</key>
 										<string>1CE0B20406471E060097A5F4</string>
 										<key>PBXProjectModuleLabel</key>
-										<string>Localizable.strings</string>
+										<string>Info.plist</string>
+										<key>_historyCapacity</key>
+										<integer>0</integer>
+										<key>bookmark</key>
+										<string>379C8B4F1040085A008F43CF</string>
 										<key>history</key>
 										<array>
 											<string>370DD14710150676003437E8</string>
@@ -340,8 +342,8 @@
 											<string>37A8C942103BF47000EE6C5A</string>
 											<string>37A8C980103C203B00EE6C5A</string>
 											<string>375C3B9B103EF240005851AF</string>
-											<string>375C3B9C103EF240005851AF</string>
 											<string>375C3B9E103EF240005851AF</string>
+											<string>379C8B4E1040085A008F43CF</string>
 										</array>
 										<key>prevStack</key>
 										<array>
