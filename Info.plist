@@ -15,7 +15,7 @@
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>1.0</string>
+	<string>1000</string>
 	<key>NSMainNibFile</key>
 	<string>MainMenu</string>
 	<key>NSPrincipalClass</key>
@@ -27,6 +27,6 @@
 	<key>LSUIElement</key>
 	<true/>
 	<key>SUFeedURL</key>
-	<string>http://gregoire.lejeune.free.fr/GemMenu.xml</string>
+	<string>http://gregoire.lejeune.free.fr/gemmenu.xml</string>
 </dict>
 </plist>

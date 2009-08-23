@@ -8,7 +8,7 @@
 		};
 	};
 	29B97313FDCFA39411CA2CEA /* Project object */ = {
-		activeBuildConfigurationName = Debug;
+		activeBuildConfigurationName = Release;
 		activeExecutable = 37113A161014BE9D00F9051C /* GemMenu */;
 		activeTarget = 4DDCA7030ACC9A6100E082CE /* GemMenu */;
 		addToTargets = (
@@ -63,10 +63,11 @@
 					PBXFileDataSource_Warnings_ColumnID,
 				);
 			};
-			PBXPerProjectTemplateStateSaveDate = 272628882;
-			PBXWorkspaceStateSaveDate = 272628882;
+			PBXPerProjectTemplateStateSaveDate = 272743896;
+			PBXWorkspaceStateSaveDate = 272743896;
 		};
 		perUserProjectItems = {
+			370D19141041BB7E00531865 /* PlistBookmark */ = 370D19141041BB7E00531865 /* PlistBookmark */;
 			370DD14710150676003437E8 /* PBXBookmark */ = 370DD14710150676003437E8 /* PBXBookmark */;
 			370DD14A10150676003437E8 /* PlistBookmark */ = 370DD14A10150676003437E8 /* PlistBookmark */;
 			370DD14C10150676003437E8 /* PBXBookmark */ = 370DD14C10150676003437E8 /* PBXBookmark */;
@@ -78,8 +79,6 @@
 			375C3BA3103EF240005851AF /* PBXTextBookmark */ = 375C3BA3103EF240005851AF /* PBXTextBookmark */;
 			375C3BA6103EF240005851AF /* PBXTextBookmark */ = 375C3BA6103EF240005851AF /* PBXTextBookmark */;
 			375C3BAD103EF240005851AF /* PBXTextBookmark */ = 375C3BAD103EF240005851AF /* PBXTextBookmark */;
-			379C8B4E1040085A008F43CF /* PlistBookmark */ = 379C8B4E1040085A008F43CF /* PlistBookmark */;
-			379C8B4F1040085A008F43CF /* PlistBookmark */ = 379C8B4F1040085A008F43CF /* PlistBookmark */;
 			37A8C91F103AED3500EE6C5A /* PBXBookmark */ = 37A8C91F103AED3500EE6C5A /* PBXBookmark */;
 			37A8C920103AED3500EE6C5A /* PBXBookmark */ = 37A8C920103AED3500EE6C5A /* PBXBookmark */;
 			37A8C926103AED3500EE6C5A /* PBXBookmark */ = 37A8C926103AED3500EE6C5A /* PBXBookmark */;
@@ -89,12 +88,25 @@
 			37A8C946103BF47000EE6C5A /* PBXBookmark */ = 37A8C946103BF47000EE6C5A /* PBXBookmark */;
 			37A8C980103C203B00EE6C5A /* PlistBookmark */ = 37A8C980103C203B00EE6C5A /* PlistBookmark */;
 			37C566B8103EB93F00492B45 /* PBXTextBookmark */ = 37C566B8103EB93F00492B45 /* PBXTextBookmark */;
+			37D698121041BDE700F21144 /* PlistBookmark */ = 37D698121041BDE700F21144 /* PlistBookmark */;
 			37EBA8C310152BBE006FC481 /* PBXTextBookmark */ = 37EBA8C310152BBE006FC481 /* PBXTextBookmark */;
 			37EBA8C710152BBE006FC481 /* PBXTextBookmark */ = 37EBA8C710152BBE006FC481 /* PBXTextBookmark */;
 		};
 		sourceControlManager = 37113A231014BEAE00F9051C /* Source Control */;
 		userBuildSettings = {
 		};
+	};
+	370D19141041BB7E00531865 /* PlistBookmark */ = {
+		isa = PlistBookmark;
+		fRef = 4DDCA7110ACC9A6100E082CE /* Info.plist */;
+		fallbackIsa = PBXBookmark;
+		isK = 0;
+		kPath = (
+			CFBundleVersion,
+		);
+		name = /Users/greg/Dropbox/Greg/Dev/github/GemMenu/Info.plist;
+		rLen = 0;
+		rLoc = 2147483647;
 	};
 	370DD14710150676003437E8 /* PBXBookmark */ = {
 		isa = PBXBookmark;
@@ -257,29 +269,6 @@
 		vrLen = 234;
 		vrLoc = 0;
 	};
-	379C8B4E1040085A008F43CF /* PlistBookmark */ = {
-		isa = PlistBookmark;
-		fRef = 4DDCA7110ACC9A6100E082CE /* Info.plist */;
-		fallbackIsa = PBXBookmark;
-		isK = 0;
-		kPath = (
-		);
-		name = /Users/greg/Dropbox/Greg/Dev/github/GemMenu/Info.plist;
-		rLen = 0;
-		rLoc = 2147483647;
-	};
-	379C8B4F1040085A008F43CF /* PlistBookmark */ = {
-		isa = PlistBookmark;
-		fRef = 4DDCA7110ACC9A6100E082CE /* Info.plist */;
-		fallbackIsa = PBXBookmark;
-		isK = 0;
-		kPath = (
-			SUFeedURL,
-		);
-		name = /Users/greg/Dropbox/Greg/Dev/github/GemMenu/Info.plist;
-		rLen = 0;
-		rLoc = 2147483647;
-	};
 	37A8C91F103AED3500EE6C5A /* PBXBookmark */ = {
 		isa = PBXBookmark;
 		fRef = 37EBA8FC10153AC2006FC481 /* GemMenu.icns */;
@@ -336,6 +325,18 @@
 		rType = 0;
 		vrLen = 78;
 		vrLoc = 0;
+	};
+	37D698121041BDE700F21144 /* PlistBookmark */ = {
+		isa = PlistBookmark;
+		fRef = 4DDCA7110ACC9A6100E082CE /* Info.plist */;
+		fallbackIsa = PBXBookmark;
+		isK = 0;
+		kPath = (
+			CFBundleVersion,
+		);
+		name = /Users/greg/Dropbox/Greg/Dev/github/GemMenu/Info.plist;
+		rLen = 0;
+		rLoc = 2147483647;
 	};
 	37EBA8C310152BBE006FC481 /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
