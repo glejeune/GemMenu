@@ -15,7 +15,7 @@
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>1001</string>
+	<string>1002</string>
 	<key>NSMainNibFile</key>
 	<string>MainMenu</string>
 	<key>NSPrincipalClass</key>
@@ -28,5 +28,7 @@
 	<true/>
 	<key>SUFeedURL</key>
 	<string>http://gregoire.lejeune.free.fr/gemmenu.xml</string>
+	<key>SUPublicDSAKeyFile</key>
+	<string>dsa_pub.pem</string>
 </dict>
 </plist>

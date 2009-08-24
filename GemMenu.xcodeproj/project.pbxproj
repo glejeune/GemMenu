@@ -13,6 +13,7 @@
 		371C8981103EADFB00482EAB /* pref_general.png in Resources */ = {isa = PBXBuildFile; fileRef = 371C8980103EADFB00482EAB /* pref_general.png */; };
 		37555286101764C100D9BB3D /* UserDefaults.plist in Resources */ = {isa = PBXBuildFile; fileRef = 37555285101764C100D9BB3D /* UserDefaults.plist */; };
 		375C3B94103EF0C6005851AF /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 375C3B93103EF0C6005851AF /* Localizable.strings */; };
+		378E78C1104330C300F250F6 /* dsa_pub.pem in Resources */ = {isa = PBXBuildFile; fileRef = 378E78C0104330C300F250F6 /* dsa_pub.pem */; };
 		379C8B36104002A7008F43CF /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 379C8B35104002A7008F43CF /* Sparkle.framework */; };
 		379C8B4310400309008F43CF /* Sparkle.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 379C8B35104002A7008F43CF /* Sparkle.framework */; };
 		37A255311042B85000208EF1 /* pref_sources.png in Resources */ = {isa = PBXBuildFile; fileRef = 37A255301042B85000208EF1 /* pref_sources.png */; };
@@ -63,6 +64,7 @@
 		375C3B77103EE80C005851AF /* French */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = French; path = French.lproj/MainMenu.nib; sourceTree = "<group>"; };
 		375C3B91103EF0B2005851AF /* English */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/Localizable.strings; sourceTree = "<group>"; };
 		375C3B95103EF0D3005851AF /* French */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = French; path = French.lproj/Localizable.strings; sourceTree = "<group>"; };
+		378E78C0104330C300F250F6 /* dsa_pub.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = dsa_pub.pem; sourceTree = "<group>"; };
 		379C8B35104002A7008F43CF /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Sparkle.framework; sourceTree = "<group>"; };
 		37A255301042B85000208EF1 /* pref_sources.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pref_sources.png; sourceTree = "<group>"; };
 		37A255421042BAAD00208EF1 /* GemSources.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = GemSources.rb; sourceTree = "<group>"; };
@@ -159,6 +161,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				378E78C0104330C300F250F6 /* dsa_pub.pem */,
 				37E7FEA21042D2C500991F31 /* gplv3.png */,
 				37A255301042B85000208EF1 /* pref_sources.png */,
 				371C8980103EADFB00482EAB /* pref_general.png */,
@@ -264,6 +267,7 @@
 				37E7FEA31042D2C500991F31 /* gplv3.png in Resources */,
 				37FDB6451042E0F500F7634E /* About.rb in Resources */,
 				37FDB67A1042E45F00F7634E /* Command.rb in Resources */,
+				378E78C1104330C300F250F6 /* dsa_pub.pem in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
