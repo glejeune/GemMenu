@@ -3,10 +3,25 @@
 #  GemMenu
 #
 #  Created by greg on 20/07/09.
-#  Copyright (c) 2009 __MyCompanyName__. All rights reserved.
+#  Copyright (c) 2009 Grégoire Lejeune. All rights reserved.
 #
+# This file is part of GemMenu.
+#
+# GemMenu is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# GemMenu is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with GemMenu.  If not, see <http://www.gnu.org/licenses/>.
 
 require 'osx/cocoa'
+require 'Command'
 
 OSX.require_framework 'WebKit'
 
@@ -34,13 +49,13 @@ class GemMenu < OSX::NSObject
   
   # -- About Window
   ib_outlet :aboutWindow
-  ib_outlet :creditWebView
   
   # -- Preference Window
   ib_outlet :prefWindow
   
   ib_outlet :generalPrefsView
   ib_outlet :rubygemsPrefView
+  ib_outlet :sourcesPrefView
   
   ib_outlet :checkTime
   ib_outlet :fireDateValue
@@ -105,11 +120,7 @@ class GemMenu < OSX::NSObject
     if @@__GROWL__
       @growl = Growl::Notifier.sharedInstance
       @growl.register('GemMenu', ['updates'])
-    end
-    
-    # -- Load credits
-    creditsPath = OSX::NSBundle.mainBundle().pathForResource_ofType("credits", "html")
-    @creditWebView.mainFrame().loadRequest(OSX::NSURLRequest.requestWithURL(OSX::NSURL.fileURLWithPath(creditsPath)))
+    end    
   end
   
   def applicationDidFinishLaunching( aNotification )
@@ -240,15 +251,26 @@ class GemMenu < OSX::NSObject
   
   def showRubyGemsPrefs(sender)    
     @rubygemsPrefView.setHidden(false)
+    @sourcesPrefView.setHidden(true)
     @generalPrefsView.setHidden(true)
   end
   ib_action :showRubyGemsPrefs
   
   def showGeneralPrefs(sender)    
     @rubygemsPrefView.setHidden(true)
+    @sourcesPrefView.setHidden(true)
     @generalPrefsView.setHidden(false)
   end
   ib_action :showGeneralPrefs
+  
+  def showSourcesPrefs(sender)
+    @rubygemsPrefView.setHidden(true)
+    @sourcesPrefView.setHidden(false)
+    @generalPrefsView.setHidden(true)
+  end
+  ib_action :showSourcesPrefs
+  
+  # -- Preferences actions
   
   def setPrefsUpdateAsRoot(sender)
     @userDefaultsPrefs.setBool_forKey(@updateAsRoot.state == OSX::NSOnState, "UpdateAsRoot")
@@ -366,24 +388,28 @@ class GemMenu < OSX::NSObject
     gemToUpdate = (gem.nil?)?"":" "+gem.title.gsub( /\(.*/, "" ).strip
     OSX::NSLog( "Update#{gemToUpdate}..." )
     
-    begin
-      privileges = (@updateAsRoot.state == OSX::NSOnState)?" with administrator privileges":""
-      cmd = "do shell script \"#{@gemExecutable.stringValue()} update#{gemToUpdate} -y\"#{privileges}"
-      #cmd = "do shell script \"#{@gemExecutable.stringValue()} list#{gemToUpdate} -a\"#{privileges}"
-      OSX::NSLog(cmd)
-      script = OSX::NSAppleScript.alloc.initWithSource(cmd)
-      errorInfo = OSX::OCObject.new
-      data = script.executeAndReturnError(errorInfo)
-      if data.nil?
-        OSX::NSRunAlertPanel("GemMenu", "UPDATE ERROR: #{errorInfo.objectForKey(OSX::NSAppleScriptErrorMessage)}", "OK", nil, nil)
-        OSX::NSLog("UPDATE ERROR: #{errorInfo.objectForKey(OSX::NSAppleScriptErrorMessage)}")
-        rCod = false
-      else
-        OSX::NSLog(data.stringValue())
-      end
-    rescue => e
-      OSX::NSLog(e.message)
-    end
+    rCod = Command.execute( 
+      "#{@gemExecutable.stringValue()} update#{gemToUpdate} -y",
+      (@updateAsRoot.state == OSX::NSOnState)
+    )
+#    begin
+#      privileges = (@updateAsRoot.state == OSX::NSOnState)?" with administrator privileges":""
+#      cmd = "do shell script \"#{@gemExecutable.stringValue()} update#{gemToUpdate} -y\"#{privileges}"
+#      #cmd = "do shell script \"#{@gemExecutable.stringValue()} list#{gemToUpdate} -a\"#{privileges}"
+#      OSX::NSLog(cmd)
+#      script = OSX::NSAppleScript.alloc.initWithSource(cmd)
+#      errorInfo = OSX::OCObject.new
+#      data = script.executeAndReturnError(errorInfo)
+#      if data.nil?
+#        OSX::NSRunAlertPanel("GemMenu", "UPDATE ERROR: #{errorInfo.objectForKey(OSX::NSAppleScriptErrorMessage)}", "OK", nil, nil)
+#        OSX::NSLog("UPDATE ERROR: #{errorInfo.objectForKey(OSX::NSAppleScriptErrorMessage)}")
+#        rCod = false
+#      else
+#        OSX::NSLog(data.stringValue())
+#      end
+#    rescue => e
+#      OSX::NSLog(e.message)
+#    end
 
     # Enable "Check Now!" Menu
     @canCheck = true
