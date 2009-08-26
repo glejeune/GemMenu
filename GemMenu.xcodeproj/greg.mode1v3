@@ -230,8 +230,6 @@
 			<key>Layout</key>
 			<array>
 				<dict>
-					<key>BecomeActive</key>
-					<true/>
 					<key>ContentConfiguration</key>
 					<dict>
 						<key>PBXBottomSmartGroupGIDs</key>
@@ -272,14 +270,14 @@
 								<string>29B97315FDCFA39411CA2CEA</string>
 								<string>29B97317FDCFA39411CA2CEA</string>
 								<string>29B97318FDCFA39411CA2CEA</string>
+								<string>375C3B93103EF0C6005851AF</string>
 								<string>1C37FABC05509CD000000102</string>
 							</array>
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 							<array>
 								<array>
-									<integer>26</integer>
-									<integer>24</integer>
-									<integer>10</integer>
+									<integer>6</integer>
+									<integer>1</integer>
 									<integer>0</integer>
 								</array>
 							</array>
@@ -314,12 +312,14 @@
 					<key>Dock</key>
 					<array>
 						<dict>
+							<key>BecomeActive</key>
+							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXProjectModuleGUID</key>
 								<string>1CE0B20306471E060097A5F4</string>
 								<key>PBXProjectModuleLabel</key>
-								<string>Info.plist</string>
+								<string>GemManager.rb</string>
 								<key>PBXSplitModuleInNavigatorKey</key>
 								<dict>
 									<key>Split0</key>
@@ -327,11 +327,11 @@
 										<key>PBXProjectModuleGUID</key>
 										<string>1CE0B20406471E060097A5F4</string>
 										<key>PBXProjectModuleLabel</key>
-										<string>Info.plist</string>
+										<string>GemManager.rb</string>
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>37DE61FC1045A24F00B653AE</string>
+										<string>3799B8C81045B49A004584F8</string>
 										<key>history</key>
 										<array>
 											<string>370DD14710150676003437E8</string>
@@ -347,10 +347,12 @@
 											<string>37FDB6B91042EBE700F7634E</string>
 											<string>375046A4104337A0007B36F8</string>
 											<string>37463941104590BE00A710AC</string>
-											<string>374639501045929F00A710AC</string>
-											<string>374639601045937E00A710AC</string>
-											<string>37D185891045A1D400A94208</string>
-											<string>37D1858B1045A1D400A94208</string>
+											<string>37DE62091045B28200B653AE</string>
+											<string>37DE620A1045B28200B653AE</string>
+											<string>37DE620B1045B28200B653AE</string>
+											<string>37DE620C1045B28200B653AE</string>
+											<string>37DE620D1045B28200B653AE</string>
+											<string>37DE62161045B28200B653AE</string>
 										</array>
 										<key>prevStack</key>
 										<array>
@@ -430,9 +432,9 @@
 			</array>
 			<key>TableOfContents</key>
 			<array>
-				<string>37DE61FD1045A24F00B653AE</string>
+				<string>3799B8AD1045B2C6004584F8</string>
 				<string>1CE0B1FE06471DED0097A5F4</string>
-				<string>37DE61FE1045A24F00B653AE</string>
+				<string>3799B8AE1045B2C6004584F8</string>
 				<string>1CE0B20306471E060097A5F4</string>
 				<string>1CE0B20506471E060097A5F4</string>
 			</array>
@@ -566,6 +568,9 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
+		<string>1CD10A99069EF8BA00B06720</string>
+		<string>37113A921014CC6900F9051C</string>
+		<string>1C78EAAD065D492600B07095</string>
 		<string>/Users/greg/Dropbox/Greg/Dev/github/GemMenu/GemMenu.xcodeproj</string>
 	</array>
 	<key>WindowString</key>
@@ -646,7 +651,7 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>37113A921014CC6900F9051C</string>
-				<string>37D1857F1045A17200A94208</string>
+				<string>3799B8AF1045B2C6004584F8</string>
 				<string>1CD0528F0623707200166675</string>
 				<string>XCMainBuildResultsModuleGUID</string>
 			</array>
@@ -766,13 +771,13 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>1CD10A99069EF8BA00B06720</string>
-				<string>37D185801045A17200A94208</string>
+				<string>3799B8B01045B2C6004584F8</string>
 				<string>1C162984064C10D400B95A72</string>
-				<string>37D185811045A17200A94208</string>
-				<string>37D185821045A17200A94208</string>
-				<string>37D185831045A17200A94208</string>
-				<string>37D185841045A17200A94208</string>
-				<string>37D185851045A17200A94208</string>
+				<string>3799B8B11045B2C6004584F8</string>
+				<string>3799B8B21045B2C6004584F8</string>
+				<string>3799B8B31045B2C6004584F8</string>
+				<string>3799B8B41045B2C6004584F8</string>
+				<string>3799B8B51045B2C6004584F8</string>
 			</array>
 			<key>ToolbarConfiguration</key>
 			<string>xcode.toolbar.config.debugV3</string>
@@ -936,7 +941,7 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>1C78EAAD065D492600B07095</string>
-				<string>37D185861045A17200A94208</string>
+				<string>3799B8B61045B2C6004584F8</string>
 				<string>1C78EAAC065D492600B07095</string>
 			</array>
 			<key>ToolbarConfiguration</key>
@@ -946,7 +951,7 @@
 			<key>WindowToolGUID</key>
 			<string>1C78EAAD065D492600B07095</string>
 			<key>WindowToolIsVisible</key>
-			<false/>
+			<true/>
 		</dict>
 		<dict>
 			<key>Identifier</key>

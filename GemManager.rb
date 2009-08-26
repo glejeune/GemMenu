@@ -52,13 +52,14 @@ class GemManager < OSX::NSObject
     if( @gemsList.selectedRow >= 0 )
       gemName = @gems[@gemsList.selectedRow]['name']
       gemVersion = @gems[@gemsList.selectedRow]['version']
+      gemPlatform = (@gems[@gemsList.selectedRow]['plateforms'] == "ruby")?"":"--platform #{@gems[@gemsList.selectedRow]['plateforms']} "
       
       command = nil
       updateLocal = false
       if @remoteSearch.state == OSX::NSOffState
         command = "gem uninstall #{gemName} -v #{gemVersion}"
       else
-        command = "gem install #{gemName} -v #{gemVersion} -y"
+        command = "gem install #{gemName} -v #{gemVersion} #{gemPlatform}-y"
         updateLocal = true
       end
       
@@ -109,7 +110,10 @@ class GemManager < OSX::NSObject
       term = /#{@searchField.stringValue().chomp}/i
       local = @remoteSearch.state == OSX::NSOffState
       
+      OSX::NSLog("Search #{term}, local = #{local}")
+      
       dep = Gem::Dependency.new term, Gem::Requirement.default
+      spec_tuples = []
       
       if local
         specs = Gem.source_index.search dep
@@ -125,7 +129,7 @@ class GemManager < OSX::NSObject
           spec_tuples = []
         end
       end
-
+      
       version = Hash.new { |h,name| h[name] = [] }
 
       spec_tuples.each do |tuple, uri|
@@ -142,7 +146,11 @@ class GemManager < OSX::NSObject
         platforms = Hash.new { |h,version| h[version] = [] }
 
         tuples.map do |(name, version, platform,_),_|
-          platforms[version] << platform if platform
+          if platform
+            platforms[version] << platform if platform
+          else
+            platforms[version] << Gem::Platform::CURRENT
+          end
         end
 
         detail_tuple = tuples.first
@@ -155,12 +163,14 @@ class GemManager < OSX::NSObject
               end
   
         versions = tuples.map { |(name, version,_),_| version }.uniq.each do |version|
-          @gems << {
-            "name" => name,
-            "plateforms" => platforms[version].uniq.join( ", " ),
-            "version" => version.to_s,
-            "summary" => spec.summary.split(/\n/).join( " " )
-          }
+          platforms[version].uniq.each do |platform|
+            @gems << {
+              "name" => name,
+              "plateforms" => platform,
+              "version" => version.to_s,
+              "summary" => spec.summary.split(/\n/).join( " " )
+            }
+          end
         end
       end
 
