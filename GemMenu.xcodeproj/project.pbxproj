@@ -11,6 +11,7 @@
 		37113A221014BEAE00F9051C /* menuImage.gif in Resources */ = {isa = PBXBuildFile; fileRef = 37113A211014BEAE00F9051C /* menuImage.gif */; };
 		37113A2B1014C0E400F9051C /* GemMenu.rb in Resources */ = {isa = PBXBuildFile; fileRef = 37113A2A1014C0E400F9051C /* GemMenu.rb */; };
 		371C8981103EADFB00482EAB /* pref_general.png in Resources */ = {isa = PBXBuildFile; fileRef = 371C8980103EADFB00482EAB /* pref_general.png */; };
+		374638EB10456B8E00A710AC /* GemManager.rb in Resources */ = {isa = PBXBuildFile; fileRef = 374638EA10456B8E00A710AC /* GemManager.rb */; };
 		37555286101764C100D9BB3D /* UserDefaults.plist in Resources */ = {isa = PBXBuildFile; fileRef = 37555285101764C100D9BB3D /* UserDefaults.plist */; };
 		375C3B94103EF0C6005851AF /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 375C3B93103EF0C6005851AF /* Localizable.strings */; };
 		378E78C1104330C300F250F6 /* dsa_pub.pem in Resources */ = {isa = PBXBuildFile; fileRef = 378E78C0104330C300F250F6 /* dsa_pub.pem */; };
@@ -60,6 +61,7 @@
 		37113A211014BEAE00F9051C /* menuImage.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = menuImage.gif; sourceTree = "<group>"; };
 		37113A2A1014C0E400F9051C /* GemMenu.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = GemMenu.rb; sourceTree = "<group>"; };
 		371C8980103EADFB00482EAB /* pref_general.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pref_general.png; sourceTree = "<group>"; };
+		374638EA10456B8E00A710AC /* GemManager.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = GemManager.rb; sourceTree = "<group>"; };
 		37555285101764C100D9BB3D /* UserDefaults.plist */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = UserDefaults.plist; sourceTree = "<group>"; };
 		375C3B77103EE80C005851AF /* French */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = French; path = French.lproj/MainMenu.nib; sourceTree = "<group>"; };
 		375C3B91103EF0B2005851AF /* English */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -105,6 +107,7 @@
 				37A255421042BAAD00208EF1 /* GemSources.rb */,
 				37FDB6441042E0F500F7634E /* About.rb */,
 				37FDB6791042E45F00F7634E /* Command.rb */,
+				374638EA10456B8E00A710AC /* GemManager.rb */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -268,6 +271,7 @@
 				37FDB6451042E0F500F7634E /* About.rb in Resources */,
 				37FDB67A1042E45F00F7634E /* Command.rb in Resources */,
 				378E78C1104330C300F250F6 /* dsa_pub.pem in Resources */,
+				374638EB10456B8E00A710AC /* GemManager.rb in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

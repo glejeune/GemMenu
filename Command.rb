@@ -5,7 +5,6 @@
 #  Created by greg on 24/08/09.
 #  Copyright (c) 2009 Grégoire Lejeune. All rights reserved.
 #
-#
 # This file is part of GemMenu.
 #
 # GemMenu is free software: you can redistribute it and/or modify

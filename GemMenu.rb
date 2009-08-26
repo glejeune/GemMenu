@@ -43,9 +43,10 @@ class GemMenu < OSX::NSObject
   ib_outlet :updateMenu
   ib_outlet :checkMenu
   ib_outlet :quitMenu
+  ib_outlet :rubygemsMenu
   
-  # -- Update Windows
-  ib_outlet :updateWindow
+  # -- Rubygems Windows
+  ib_outlet :rubygemsWindow
   
   # -- About Window
   ib_outlet :aboutWindow
@@ -149,6 +150,11 @@ class GemMenu < OSX::NSObject
     @aboutWindow.makeKeyAndOrderFront(self)
   end
   ib_action :about
+  
+  def rubygems( sender )
+    @rubygemsWindow.makeKeyAndOrderFront(self)
+  end
+  ib_action :rubygems
   
   def preferences(sender)
     @prefWindow.makeKeyAndOrderFront(self)
@@ -392,24 +398,6 @@ class GemMenu < OSX::NSObject
       "#{@gemExecutable.stringValue()} update#{gemToUpdate} -y",
       (@updateAsRoot.state == OSX::NSOnState)
     )
-#    begin
-#      privileges = (@updateAsRoot.state == OSX::NSOnState)?" with administrator privileges":""
-#      cmd = "do shell script \"#{@gemExecutable.stringValue()} update#{gemToUpdate} -y\"#{privileges}"
-#      #cmd = "do shell script \"#{@gemExecutable.stringValue()} list#{gemToUpdate} -a\"#{privileges}"
-#      OSX::NSLog(cmd)
-#      script = OSX::NSAppleScript.alloc.initWithSource(cmd)
-#      errorInfo = OSX::OCObject.new
-#      data = script.executeAndReturnError(errorInfo)
-#      if data.nil?
-#        OSX::NSRunAlertPanel("GemMenu", "UPDATE ERROR: #{errorInfo.objectForKey(OSX::NSAppleScriptErrorMessage)}", "OK", nil, nil)
-#        OSX::NSLog("UPDATE ERROR: #{errorInfo.objectForKey(OSX::NSAppleScriptErrorMessage)}")
-#        rCod = false
-#      else
-#        OSX::NSLog(data.stringValue())
-#      end
-#    rescue => e
-#      OSX::NSLog(e.message)
-#    end
 
     # Enable "Check Now!" Menu
     @canCheck = true
