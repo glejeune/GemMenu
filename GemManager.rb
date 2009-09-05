@@ -97,7 +97,7 @@ class GemManager < OSX::NSObject
   end
   
   def gemQuery()
-    return if @searchField.stringValue().chomp.size < 3
+    return if @searchField.stringValue().chomp.size < 3 #and @remoteSearch.state == OSX::NSOffState
     
     Thread.new do
       @progressIndicator.setHidden(false)

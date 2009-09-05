@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 44;
+	objectVersion = 42;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -24,6 +24,7 @@
 		37A8C93C103BF43F00EE6C5A /* menuImageA3.gif in Resources */ = {isa = PBXBuildFile; fileRef = 37A8C939103BF43F00EE6C5A /* menuImageA3.gif */; };
 		37A8C93D103BF43F00EE6C5A /* menuImageA4.gif in Resources */ = {isa = PBXBuildFile; fileRef = 37A8C93A103BF43F00EE6C5A /* menuImageA4.gif */; };
 		37A8C93E103BF43F00EE6C5A /* menuImageNetworkDown.gif in Resources */ = {isa = PBXBuildFile; fileRef = 37A8C93B103BF43F00EE6C5A /* menuImageNetworkDown.gif */; };
+		37BAFE7A1052C41C001BCCA4 /* RubyCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37BAFE791052C41C001BCCA4 /* RubyCocoa.framework */; };
 		37C566B4103EB80000492B45 /* credits.html in Resources */ = {isa = PBXBuildFile; fileRef = 37C566B3103EB80000492B45 /* credits.html */; };
 		37E7FEA31042D2C500991F31 /* gplv3.png in Resources */ = {isa = PBXBuildFile; fileRef = 37E7FEA21042D2C500991F31 /* gplv3.png */; };
 		37EBA8FD10153AC2006FC481 /* GemMenu.icns in Resources */ = {isa = PBXBuildFile; fileRef = 37EBA8FC10153AC2006FC481 /* GemMenu.icns */; };
@@ -34,7 +35,6 @@
 		4DDCA7080ACC9A6100E082CE /* rb_main.rb in Resources */ = {isa = PBXBuildFile; fileRef = E8F5E25803AEB7C803A81C6F /* rb_main.rb */; };
 		4DDCA70A0ACC9A6100E082CE /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		4DDCA70C0ACC9A6100E082CE /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
-		4DDCA70D0ACC9A6100E082CE /* RubyCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E8F5E24E03AEB6EC03A81C6F /* RubyCocoa.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -75,6 +75,7 @@
 		37A8C939103BF43F00EE6C5A /* menuImageA3.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = menuImageA3.gif; sourceTree = "<group>"; };
 		37A8C93A103BF43F00EE6C5A /* menuImageA4.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = menuImageA4.gif; sourceTree = "<group>"; };
 		37A8C93B103BF43F00EE6C5A /* menuImageNetworkDown.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = menuImageNetworkDown.gif; sourceTree = "<group>"; };
+		37BAFE791052C41C001BCCA4 /* RubyCocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RubyCocoa.framework; path = /System/Library/Frameworks/RubyCocoa.framework; sourceTree = "<absolute>"; };
 		37C566B3103EB80000492B45 /* credits.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = credits.html; sourceTree = "<group>"; };
 		37E7FEA21042D2C500991F31 /* gplv3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gplv3.png; sourceTree = "<group>"; };
 		37EBA8FC10153AC2006FC481 /* GemMenu.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = GemMenu.icns; sourceTree = "<group>"; };
@@ -82,7 +83,6 @@
 		37FDB6791042E45F00F7634E /* Command.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = Command.rb; sourceTree = "<group>"; };
 		4DDCA7110ACC9A6100E082CE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4DDCA7120ACC9A6100E082CE /* GemMenu.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GemMenu.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		E8F5E24E03AEB6EC03A81C6F /* RubyCocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RubyCocoa.framework; path = /System/Library/Frameworks/RubyCocoa.framework; sourceTree = "<absolute>"; };
 		E8F5E25803AEB7C803A81C6F /* rb_main.rb */ = {isa = PBXFileReference; lastKnownFileType = text.script.ruby; path = rb_main.rb; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -92,8 +92,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				4DDCA70C0ACC9A6100E082CE /* Cocoa.framework in Frameworks */,
-				4DDCA70D0ACC9A6100E082CE /* RubyCocoa.framework in Frameworks */,
 				379C8B36104002A7008F43CF /* Sparkle.framework in Frameworks */,
+				37BAFE7A1052C41C001BCCA4 /* RubyCocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -117,7 +117,7 @@
 			children = (
 				379C8B35104002A7008F43CF /* Sparkle.framework */,
 				1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */,
-				E8F5E24E03AEB6EC03A81C6F /* RubyCocoa.framework */,
+				37BAFE791052C41C001BCCA4 /* RubyCocoa.framework */,
 			);
 			name = "Linked Frameworks";
 			sourceTree = "<group>";
@@ -232,8 +232,11 @@
 /* Begin PBXProject section */
 		29B97313FDCFA39411CA2CEA /* Project object */ = {
 			isa = PBXProject;
+			attributes = {
+				ORGANIZATIONNAME = "Grégoire Lejeune";
+			};
 			buildConfigurationList = 4D7A7B570ABF745500C2D4C0 /* Build configuration list for PBXProject "GemMenu" */;
-			compatibilityVersion = "Xcode 3.0";
+			compatibilityVersion = "Xcode 2.4";
 			hasScannedForEncodings = 0;
 			mainGroup = 29B97314FDCFA39411CA2CEA /* GemMenu */;
 			projectDirPath = "";
@@ -321,25 +324,22 @@
 		4D7A7B580ABF745500C2D4C0 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(NATIVE_ARCH)";
+				DEBUG_INFORMATION_FORMAT = stabs;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				PREBINDING = NO;
-				SDKROOT = "$(DEVELOPER_SDK_DIR)/MacOSX10.5.sdk";
 			};
 			name = Debug;
 		};
 		4D7A7B590ABF745500C2D4C0 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = (
-					ppc,
-					i386,
-				);
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ARCHS = "$(NATIVE_ARCH)";
+				DEBUG_INFORMATION_FORMAT = stabs;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				PREBINDING = NO;
-				SDKROOT = "$(DEVELOPER_SDK_DIR)/MacOSX10.5.sdk";
 			};
 			name = Release;
 		};
@@ -349,8 +349,9 @@
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)\"",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
 				);
+				FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)\"";
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_MODEL_TUNING = G5;
@@ -372,8 +373,9 @@
 				);
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)\"",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
 				);
+				FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)\"";
 				GCC_MODEL_TUNING = G5;
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Applications";
